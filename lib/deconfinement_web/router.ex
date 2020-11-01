@@ -13,17 +13,6 @@ defmodule DeconfinementWeb.Router do
     plug :accepts, ["json"]
   end
 
-  scope "/", DeconfinementWeb do
-    pipe_through :browser
-
-    get "/*path", PageController, :index
-  end
-
-  # Other scopes may use custom stacks.
-  # scope "/api", DeconfinementWeb do
-  #   pipe_through :api
-  # end
-
   # Enables LiveDashboard only for development
   #
   # If you want to use the LiveDashboard in production, you should put
@@ -39,4 +28,21 @@ defmodule DeconfinementWeb.Router do
       live_dashboard "/dashboard", metrics: DeconfinementWeb.Telemetry
     end
   end
+
+  scope "/api", DeconfinementWeb do
+    pipe_through :api
+
+    get "/bets", BetController, :index
+    post "/bets", BetController, :create
+  end
+
+  scope "/", DeconfinementWeb do
+    pipe_through :browser
+
+    get "/*path", PageController, :index
+  end
+  # Other scopes may use custom stacks.
+  # scope "/api", DeconfinementWeb do
+  #   pipe_through :api
+  # end
 end
