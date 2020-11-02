@@ -10,6 +10,10 @@ done
 
 mix deps.get
 
+cd assets
+npm install
+cd ..
+
 # Create, migrate, and seed database if it doesn't exist.
 if [[ -z `psql -Atqc "\\list $PGDATABASE"` ]]; then
     echo "Database $PGDATABASE does not exist. Creating..."

@@ -21,11 +21,13 @@ defmodule Deconfinement.Bets do
     Repo.all(DateBets)
   end
 
-  def list_date_bets_formated() do
+  def get_all_date_count() do
     DateBets
-    |> select([bet], %{selected_date: bet.selected_date, created_at: bet.inserted_at})
+    |> group_by([bet], [bet.selected_date])
+    |> select([bet], %{date: bet.selected_date, count: count(bet.id)})
     |> Repo.all()
   end
+
   @doc """
   Gets a single date_bets.
 
