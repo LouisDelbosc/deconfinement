@@ -56,9 +56,11 @@ export default function App() {
         <input type="submit" />
       </form>
       {JSON.stringify(dates)}
-      <HeatMapMonth firstDay={fNovember} data={novemberData} />
-      <HeatMapMonth firstDay={fDecember} data={decemberData} />
-      <HeatMapMonth firstDay={fJanuary} data={januaryData} />
+      <div style={{ display: 'flex', flexFlow: 'row wrap' }}>
+        <HeatMapMonth title="Novembre" firstDay={fNovember} data={novemberData} />
+        <HeatMapMonth title="Decembre" firstDay={fDecember} data={decemberData} />
+        <HeatMapMonth title="Janvier" firstDay={fJanuary} data={januaryData} />
+      </div>
     </>
   );
 }
