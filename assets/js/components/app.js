@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { HeatMapMonth } from "./heatmap";
 import { parseISO, isSameMonth } from "date-fns";
+import {buildBounds} from './heatmapcolors';
 
 const fNovember = parseISO("2020-11-01");
 const fDecember = parseISO("2020-12-01");
@@ -48,6 +49,7 @@ export default function App() {
       .then((res) => console.log(res));
 
   const {novemberData, decemberData, januaryData} = splitDateCountByMonth(dates);
+  const getBound = buildBounds(Math.max(...dates.map(({count}) => count)))
   return (
     <>
       <h1>Quand est-ce va etre deconfine ?</h1>
@@ -55,11 +57,10 @@ export default function App() {
         <input type="date" name="date" ref={register} />
         <input type="submit" />
       </form>
-      {JSON.stringify(dates)}
       <div style={{ display: 'flex', flexFlow: 'row wrap' }}>
-        <HeatMapMonth title="Novembre" firstDay={fNovember} data={novemberData} />
-        <HeatMapMonth title="Decembre" firstDay={fDecember} data={decemberData} />
-        <HeatMapMonth title="Janvier" firstDay={fJanuary} data={januaryData} />
+        <HeatMapMonth title="Novembre" firstDay={fNovember} data={novemberData} getBound={getBound} />
+        <HeatMapMonth title="Decembre" firstDay={fDecember} data={decemberData} getBound={getBound} />
+        <HeatMapMonth title="Janvier" firstDay={fJanuary} data={januaryData} getBound={getBound} />
       </div>
     </>
   );

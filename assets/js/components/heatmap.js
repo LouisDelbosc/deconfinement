@@ -21,7 +21,7 @@ const Day = styled.div`
   width: 3rem;
   ${(props) => props.isDay && `
   cursor: pointer;
-  background-color: #ECEBE9;
+  background-color: ${props.color};
   &:hover {
     background-color: #F6E2C0;
     font-size: 20px;
@@ -36,7 +36,7 @@ const chunk = (arr, size) =>
 
 const dayNumber = (weekday, index) => Math.max(index - weekday + 1, 0);
 
-export function HeatMapMonth({ firstDay, data, title }) {
+export function HeatMapMonth({ firstDay, data, title, getBound }) {
   const weekDay = (7 + getDay(firstDay) - 1) % 7;
   const daysNumber = getDaysInMonth(firstDay);
   const rowNumber = Math.ceil((daysNumber + weekDay) / 7)
@@ -46,7 +46,7 @@ export function HeatMapMonth({ firstDay, data, title }) {
            [...acc, {display: 0, count: 0}] :
            [...acc, {
              display: numberOfTheDay,
-             count: (data.find(({day}) => day === numberOfTheDay) || {}).count
+             count: (data.find(({day}) => day === numberOfTheDay) || {count: 0}).count
            }];
   }, []);
   const days2 = chunk(days, 7)
@@ -59,6 +59,7 @@ export function HeatMapMonth({ firstDay, data, title }) {
             <Day
               key={`${day}-${dayIndex}-${weekIndex}-${firstDay}`}
               title={day.count}
+              color={getBound(day.count)}
               isDay={Boolean(day.display)}
             >
               {day.display ? day.display : ''}
