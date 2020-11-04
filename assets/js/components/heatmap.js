@@ -58,7 +58,7 @@ export function HeatMapMonth({ firstDay, data, title, getBound }) {
           {week.map((day, dayIndex) => (
             <Day
               key={`${day}-${dayIndex}-${weekIndex}-${firstDay}`}
-              title={day.count}
+              data-tooltip={`Votes : ${day.count}`}
               color={getBound(day.count)}
               isDay={Boolean(day.display)}
             >

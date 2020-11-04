@@ -7,6 +7,9 @@ import {buildBounds} from './heatmapcolors';
 const fNovember = parseISO("2020-11-01");
 const fDecember = parseISO("2020-12-01");
 const fJanuary = parseISO("2021-01-01");
+const fFebruary = parseISO("2021-01-01");
+const fMarch = parseISO("2021-02-01");
+const fApril = parseISO("2021-03-01");
 
 function useFetchDate() {
   const [dates, setDates] = useState([])
@@ -61,6 +64,9 @@ export default function App() {
         <HeatMapMonth title="Novembre" firstDay={fNovember} data={novemberData} getBound={getBound} />
         <HeatMapMonth title="Decembre" firstDay={fDecember} data={decemberData} getBound={getBound} />
         <HeatMapMonth title="Janvier" firstDay={fJanuary} data={januaryData} getBound={getBound} />
+        <HeatMapMonth title="Fevrier" firstDay={fFebruary} data={[]} getBound={getBound} />
+        <HeatMapMonth title="Mars" firstDay={fMarch} data={[]} getBound={getBound} />
+        <HeatMapMonth title="Avril" firstDay={fApril} data={[]} getBound={getBound} />
       </div>
     </>
   );
