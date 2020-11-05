@@ -47,6 +47,12 @@ module.exports = (env, options) => {
         }
       ]
     },
+    resolve: {
+      alias: {
+        '@hooks': path.resolve(__dirname, './js/hooks/'),
+        '@state': path.resolve(__dirname, './js/state/'),
+      }
+    },
     plugins: [
       new MiniCssExtractPlugin({ filename: '../css/app.css' }),
       new CopyWebpackPlugin([{ from: 'static/', to: '../' }])

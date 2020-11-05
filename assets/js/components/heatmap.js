@@ -6,8 +6,8 @@ const Title = styled.div`
   font-size: 2rem;
   font-weight: 600;
   margin-bottom: 8px;
-  color: #3F3F3E;
-`
+  color: #3f3f3e;
+`;
 
 const WeekRow = styled.div`
   display: flex;
@@ -19,14 +19,15 @@ const Day = styled.div`
   text-align: center;
   height: 3rem;
   width: 3rem;
-  ${(props) => props.isDay && `
+  ${(props) =>
+    props.isDay &&
+    `
   cursor: pointer;
   background-color: ${props.color};
   &:hover {
     background-color: #F6E2C0;
     font-size: 20px;
-  }`
-  }
+  }`}
 `;
 
 const chunk = (arr, size) =>
@@ -39,19 +40,22 @@ const dayNumber = (weekday, index) => Math.max(index - weekday + 1, 0);
 export function HeatMapMonth({ firstDay, data, title, getBound }) {
   const weekDay = (7 + getDay(firstDay) - 1) % 7;
   const daysNumber = getDaysInMonth(firstDay);
-  const rowNumber = Math.ceil((daysNumber + weekDay) / 7)
+  const rowNumber = Math.ceil((daysNumber + weekDay) / 7);
   const days = [...Array(rowNumber * 7)].reduce((acc, val, index) => {
-    const numberOfTheDay = dayNumber(weekDay, index)
-    return index - weekDay >= daysNumber ?
-           [...acc, {display: 0, count: 0}] :
-           [...acc, {
-             display: numberOfTheDay,
-             count: (data.find(({day}) => day === numberOfTheDay) || {count: 0}).count
-           }];
+    const numberOfTheDay = dayNumber(weekDay, index);
+    return index - weekDay >= daysNumber
+      ? [...acc, { display: 0, count: 0 }]
+      : [
+          ...acc,
+          {
+            display: numberOfTheDay,
+            count: (data.find(({ day }) => day === numberOfTheDay) || { count: 0 }).count,
+          },
+        ];
   }, []);
-  const days2 = chunk(days, 7)
+  const days2 = chunk(days, 7);
   return (
-    <div style={{ margin: '8px 16px', textAlign: 'center' }}>
+    <div style={{ margin: "8px 16px", textAlign: "center" }}>
       <Title>{title}</Title>
       {days2.map((week, weekIndex) => (
         <WeekRow key={`${weekIndex}-${firstDay}`}>
@@ -62,7 +66,7 @@ export function HeatMapMonth({ firstDay, data, title, getBound }) {
               color={getBound(day.count)}
               isDay={Boolean(day.display)}
             >
-              {day.display ? day.display : ''}
+              {day.display ? day.display : ""}
             </Day>
           ))}
         </WeekRow>
