@@ -4,8 +4,8 @@ import { HeatMapMonth } from "./heatmap";
 import { parseISO, isSameMonth } from "date-fns";
 import { buildBounds } from "./heatmapcolors";
 
-import useDateState from '@state/useState';
-import { useRefresh } from '@hooks/useRefresh';
+import useDateState from "@state/useState";
+import { useRefresh } from "@hooks/useRefresh";
 
 const fNovember = parseISO("2020-11-01");
 const fDecember = parseISO("2020-12-01");
@@ -28,33 +28,35 @@ function splitDateCountByMonth(dates) {
       };
 }
 
-const refresh = () => {};
+const URL = "http://localhost:4000/api/bets";
+
+const submitBet = (data, cb) => {
+  fetch("http://localhost:4000/api/bets", {
+    method: "POST",
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  }).then(cb);
+};
 
 export default function App() {
-  const {getState, updateRawDates} = useDateState();
-  const {dates} = getState()
+  const { getState, updateRawDates } = useDateState();
+  const { dates } = getState();
   const [refreshToken, refresh] = useRefresh();
-  const {register, handleSubmit} = useForm();
+  const { register, handleSubmit } = useForm();
+  const onSubmit = (data) => submitBet(data, refresh);
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch("http://localhost:4000/api/bets")
+      const res = await fetch("http://localhost:4000/api/bets");
       const json = await res.json();
-      updateRawDates(json)
-    }
-    fetchData()
-  }, [refreshToken])
-  const onSubmit = (data) =>
-    fetch("http://localhost:4000/api/bets", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify(data),
-    }).then(() => refresh())
+      updateRawDates(json);
+    };
+    fetchData();
+  }, [refreshToken]);
 
   const { novemberData, decemberData, januaryData } = splitDateCountByMonth(dates);
-  const getBound = buildBounds(Math.max(...dates.map(({ count }) => count)));
   return (
     <>
       <h1>Quand est-ce qu'on sera de nouveau libre ?</h1>
@@ -63,22 +65,12 @@ export default function App() {
         <input type="submit" />
       </form>
       <div style={{ display: "flex", flexFlow: "row wrap" }}>
-        <HeatMapMonth
-          title="Novembre"
-          firstDay={fNovember}
-          data={novemberData}
-          getBound={getBound}
-        />
-        <HeatMapMonth
-          title="Decembre"
-          firstDay={fDecember}
-          data={decemberData}
-          getBound={getBound}
-        />
-        <HeatMapMonth title="Janvier" firstDay={fJanuary} data={januaryData} getBound={getBound} />
-        <HeatMapMonth title="Fevrier" firstDay={fFebruary} data={[]} getBound={getBound} />
-        <HeatMapMonth title="Mars" firstDay={fMarch} data={[]} getBound={getBound} />
-        <HeatMapMonth title="Avril" firstDay={fApril} data={[]} getBound={getBound} />
+        <HeatMapMonth title="Novembre" firstDay={fNovember} data={novemberData} />
+        <HeatMapMonth title="Decembre" firstDay={fDecember} data={decemberData} />
+        <HeatMapMonth title="Janvier" firstDay={fJanuary} data={januaryData} />
+        <HeatMapMonth title="Fevrier" firstDay={fFebruary} data={[]} />
+        <HeatMapMonth title="Mars" firstDay={fMarch} data={[]} />
+        <HeatMapMonth title="Avril" firstDay={fApril} data={[]} />
       </div>
     </>
   );

@@ -1,5 +1,6 @@
 import React from "react";
 import styled, { css } from "styled-components";
+import { NEUTRAL } from "@state/colors";
 import { parseISO, getDay, getDaysInMonth } from "date-fns";
 
 const Title = styled.div`
@@ -37,21 +38,17 @@ const chunk = (arr, size) =>
 
 const dayNumber = (weekday, index) => Math.max(index - weekday + 1, 0);
 
-export function HeatMapMonth({ firstDay, data, title, getBound }) {
+export function HeatMapMonth({ firstDay, data, title }) {
   const weekDay = (7 + getDay(firstDay) - 1) % 7;
   const daysNumber = getDaysInMonth(firstDay);
   const rowNumber = Math.ceil((daysNumber + weekDay) / 7);
   const days = [...Array(rowNumber * 7)].reduce((acc, val, index) => {
     const numberOfTheDay = dayNumber(weekDay, index);
-    return index - weekDay >= daysNumber
-      ? [...acc, { display: 0, count: 0 }]
-      : [
-          ...acc,
-          {
-            display: numberOfTheDay,
-            count: (data.find(({ day }) => day === numberOfTheDay) || { count: 0 }).count,
-          },
-        ];
+    if (index - weekDay >= daysNumber) return [...acc, { display: 0, count: 0, color: NEUTRAL }];
+    const day = data.find(({ day }) => day === numberOfTheDay);
+    return day
+      ? [...acc, { display: numberOfTheDay, count: day.count, color: day.color }]
+      : [...acc, { display: numberOfTheDay, count: 0, color: NEUTRAL }];
   }, []);
   const days2 = chunk(days, 7);
   return (
@@ -63,7 +60,7 @@ export function HeatMapMonth({ firstDay, data, title, getBound }) {
             <Day
               key={`${day}-${dayIndex}-${weekIndex}-${firstDay}`}
               data-tooltip={`Votes : ${day.count}`}
-              color={getBound(day.count)}
+              color={day.color}
               isDay={Boolean(day.display)}
             >
               {day.display ? day.display : ""}
