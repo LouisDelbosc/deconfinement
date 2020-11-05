@@ -31,30 +31,33 @@ const Day = styled.div`
   }`}
 `;
 
+export function buildCalendarData(weekDay, daysInMonth, data) {
+  const rowNumber = Math.ceil((daysInMonth + weekDay) / 7);
+  const days = [...Array(rowNumber * 7)].reduce((acc, val, index) => {
+    const dayNumber = Math.max(index - weekDay + 1, 0);
+
+    if (index - weekDay >= daysInMonth) return [...acc, { display: 0, count: 0, color: NEUTRAL }];
+    const day = data.find(({ day }) => day === dayNumber);
+    return day
+         ? [...acc, { display: dayNumber, count: day.count, color: day.color }]
+         : [...acc, { display: dayNumber, count: 0, color: NEUTRAL }];
+  }, []);
+  return chunk(days, 7);
+}
+
 const chunk = (arr, size) =>
   Array.from({ length: Math.ceil(arr.length / size) }, (v, i) =>
     arr.slice(i * size, i * size + size)
   );
 
-const dayNumber = (weekday, index) => Math.max(index - weekday + 1, 0);
 
 export function HeatMapMonth({ firstDay, data, title }) {
   const weekDay = (7 + getDay(firstDay) - 1) % 7;
-  const daysNumber = getDaysInMonth(firstDay);
-  const rowNumber = Math.ceil((daysNumber + weekDay) / 7);
-  const days = [...Array(rowNumber * 7)].reduce((acc, val, index) => {
-    const numberOfTheDay = dayNumber(weekDay, index);
-    if (index - weekDay >= daysNumber) return [...acc, { display: 0, count: 0, color: NEUTRAL }];
-    const day = data.find(({ day }) => day === numberOfTheDay);
-    return day
-      ? [...acc, { display: numberOfTheDay, count: day.count, color: day.color }]
-      : [...acc, { display: numberOfTheDay, count: 0, color: NEUTRAL }];
-  }, []);
-  const days2 = chunk(days, 7);
+  const calendarData = buildCalendarData(weekDay, getDaysInMonth(firstDay), data)
   return (
     <div style={{ margin: "8px 16px", textAlign: "center" }}>
       <Title>{title}</Title>
-      {days2.map((week, weekIndex) => (
+      {calendarData.map((week, weekIndex) => (
         <WeekRow key={`${weekIndex}-${firstDay}`}>
           {week.map((day, dayIndex) => (
             <Day

@@ -7,6 +7,12 @@
     "watch": "webpack --mode development --watch",
     "test": "jest"
   },
+  "jest": {
+    "moduleNameMapper": {
+      "^@state(.*)$": "<rootDir>/js/state$1",
+      "^@hooks(.*)$": "<rootDir>/js/hooks$1"
+    }
+  },
   "dependencies": {
     "@babel/plugin-transform-react-jsx": "^7.12.1",
     "@babel/runtime": "^7.12.1",

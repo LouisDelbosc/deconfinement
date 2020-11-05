@@ -2,7 +2,6 @@ import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { HeatMapMonth } from "./heatmap";
 import { parseISO, isSameMonth } from "date-fns";
-import { buildBounds } from "./heatmapcolors";
 
 import useDateState from "@state/useState";
 import { useRefresh } from "@hooks/useRefresh";
@@ -10,23 +9,9 @@ import { useRefresh } from "@hooks/useRefresh";
 const fNovember = parseISO("2020-11-01");
 const fDecember = parseISO("2020-12-01");
 const fJanuary = parseISO("2021-01-01");
-const fFebruary = parseISO("2021-01-01");
-const fMarch = parseISO("2021-02-01");
-const fApril = parseISO("2021-03-01");
-
-function splitDateCountByMonth(dates) {
-  return dates
-    ? {
-        novemberData: dates.filter(({ date }) => isSameMonth(date, fNovember)),
-        decemberData: dates.filter(({ date }) => isSameMonth(date, fDecember)),
-        januaryData: dates.filter(({ date }) => isSameMonth(date, fJanuary)),
-      }
-    : {
-        novemberData: [],
-        decemberData: [],
-        januaryData: [],
-      };
-}
+const fFebruary = parseISO("2021-02-01");
+const fMarch = parseISO("2021-03-01");
+const fApril = parseISO("2021-04-01");
 
 const URL = "http://localhost:4000/api/bets";
 
@@ -38,7 +23,7 @@ const submitBet = (data, cb) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
-  }).then(cb);
+  });
 };
 
 export default function App() {
@@ -46,7 +31,7 @@ export default function App() {
   const { dates } = getState();
   const [refreshToken, refresh] = useRefresh();
   const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => submitBet(data, refresh);
+  const onSubmit = (data) => submitBet(data).then(refresh);
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetch("http://localhost:4000/api/bets");
@@ -56,7 +41,14 @@ export default function App() {
     fetchData();
   }, [refreshToken]);
 
-  const { novemberData, decemberData, januaryData } = splitDateCountByMonth(dates);
+  const heatmapData = [
+    ["Novembre", fNovember, dates.filter(({ date }) => isSameMonth(fNovember, date))],
+    ["Decembre", fDecember, dates.filter(({ date }) => isSameMonth(fDecember, date))],
+    ["Janvier", fJanuary, dates.filter(({ date }) => isSameMonth(fJanuary, date))],
+    ["Fevrier", fFebruary, dates.filter(({ date }) => isSameMonth(fFebruary, date))],
+    ["Mars", fMarch, dates.filter(({ date }) => isSameMonth(fMarch, date))],
+    ["Avril", fApril, dates.filter(({ date }) => isSameMonth(fApril, date))],
+  ];
   return (
     <>
       <h1>Quand est-ce qu'on sera de nouveau libre ?</h1>
@@ -65,12 +57,9 @@ export default function App() {
         <input type="submit" />
       </form>
       <div style={{ display: "flex", flexFlow: "row wrap" }}>
-        <HeatMapMonth title="Novembre" firstDay={fNovember} data={novemberData} />
-        <HeatMapMonth title="Decembre" firstDay={fDecember} data={decemberData} />
-        <HeatMapMonth title="Janvier" firstDay={fJanuary} data={januaryData} />
-        <HeatMapMonth title="Fevrier" firstDay={fFebruary} data={[]} />
-        <HeatMapMonth title="Mars" firstDay={fMarch} data={[]} />
-        <HeatMapMonth title="Avril" firstDay={fApril} data={[]} />
+        {heatmapData.map(([label, firstDay, monthData]) => (
+          <HeatMapMonth key={label} title={label} firstDay={firstDay} data={monthData} />
+        ))}
       </div>
     </>
   );
