@@ -39,8 +39,8 @@ export function buildCalendarData(weekDay, daysInMonth, data) {
     if (index - weekDay >= daysInMonth) return [...acc, { display: 0, count: 0, color: NEUTRAL }];
     const day = data.find(({ day }) => day === dayNumber);
     return day
-         ? [...acc, { display: dayNumber, count: day.count, color: day.color }]
-         : [...acc, { display: dayNumber, count: 0, color: NEUTRAL }];
+      ? [...acc, { display: dayNumber, count: day.count, color: day.color }]
+      : [...acc, { display: dayNumber, count: 0, color: NEUTRAL }];
   }, []);
   return chunk(days, 7);
 }
@@ -50,10 +50,9 @@ const chunk = (arr, size) =>
     arr.slice(i * size, i * size + size)
   );
 
-
 export function HeatMapMonth({ firstDay, data, title }) {
   const weekDay = (7 + getDay(firstDay) - 1) % 7;
-  const calendarData = buildCalendarData(weekDay, getDaysInMonth(firstDay), data)
+  const calendarData = buildCalendarData(weekDay, getDaysInMonth(firstDay), data);
   return (
     <div style={{ margin: "8px 16px", textAlign: "center" }}>
       <Title>{title}</Title>

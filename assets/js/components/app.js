@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import { HeatMapMonth } from "./heatmap";
+import { Analytics } from "./analytics";
 import { parseISO, isSameMonth } from "date-fns";
 
 import useDateState from "@state/useState";
@@ -16,7 +17,7 @@ const fApril = parseISO("2021-04-01");
 const URL = "http://localhost:4000/api/bets";
 
 const submitBet = (data, cb) => {
-  fetch("http://localhost:4000/api/bets", {
+  return fetch("http://localhost:4000/api/bets", {
     method: "POST",
     headers: {
       Accept: "application/json",
@@ -52,6 +53,7 @@ export default function App() {
   return (
     <>
       <h1>Quand est-ce qu'on sera de nouveau libre ?</h1>
+      <Analytics />
       <form onSubmit={handleSubmit(onSubmit)}>
         <input type="date" name="date" ref={register} />
         <input type="submit" />
