@@ -38,10 +38,6 @@ export function App() {
     <>
       <h1>Quand est-ce qu'on sera de nouveau libre ?</h1>
       <Analytics />
-      <form onSubmit={handleSubmit(onSubmit)}>
-        <input type="date" name="date" ref={register} />
-        <input type="submit" />
-      </form>
       <div style={{ display: "flex", flexFlow: "row wrap" }}>
         {heatmapData.map(([label, firstDay, monthData]) => (
           <HeatMapMonth key={label} title={label} firstDay={firstDay} data={monthData} />
