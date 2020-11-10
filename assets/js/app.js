@@ -1,6 +1,6 @@
 import React from "react";
 import { render } from "react-dom";
-import App from "./components/app";
+import Root from "./components/root";
 
 // We need to import the CSS so that webpack will load it.
 // The MiniCssExtractPlugin is used to separate it out into
@@ -21,7 +21,7 @@ import "phoenix_html";
 const rootElement = document.getElementById("root");
 render(
   <React.StrictMode>
-    <App />
+    <Root />
   </React.StrictMode>,
   rootElement
 );

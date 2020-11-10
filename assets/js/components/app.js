@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useForm } from "react-hook-form";
 import { HeatMapMonth } from "./heatmap";
 import { Analytics } from "./analytics";
 import { parseISO, isSameMonth } from "date-fns";
+import { BetForm } from "./betform.js";
 
 import useDateState from "@state/useState";
 import { useRefresh } from "@hooks/useRefresh";
@@ -14,25 +14,9 @@ const fFebruary = parseISO("2021-02-01");
 const fMarch = parseISO("2021-03-01");
 const fApril = parseISO("2021-04-01");
 
-const URL = "http://localhost:4000/api/bets";
-
-const submitBet = (data, cb) => {
-  return fetch("http://localhost:4000/api/bets", {
-    method: "POST",
-    headers: {
-      Accept: "application/json",
-      "Content-Type": "application/json",
-    },
-    body: JSON.stringify(data),
-  });
-};
-
-export default function App() {
+export function App() {
   const { getState, updateRawDates } = useDateState();
   const { dates } = getState();
-  const [refreshToken, refresh] = useRefresh();
-  const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => submitBet(data).then(refresh);
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetch("http://localhost:4000/api/bets");
@@ -40,7 +24,7 @@ export default function App() {
       updateRawDates(json);
     };
     fetchData();
-  }, [refreshToken]);
+  }, []);
 
   const heatmapData = [
     ["Novembre", fNovember, dates.filter(({ date }) => isSameMonth(fNovember, date))],
