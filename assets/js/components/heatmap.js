@@ -1,35 +1,6 @@
 import React from "react";
-import styled, { css } from "styled-components";
 import { NEUTRAL } from "@state/colors";
 import { parseISO, getDay, getDaysInMonth } from "date-fns";
-
-const Title = styled.div`
-  font-size: 2rem;
-  font-weight: 600;
-  margin-bottom: 8px;
-  color: #3f3f3e;
-`;
-
-const WeekRow = styled.div`
-  display: flex;
-  flex-direction: row;
-`;
-
-const Day = styled.div`
-  font-size: 18px;
-  text-align: center;
-  height: 3rem;
-  width: 3rem;
-  ${(props) =>
-    props.isDay &&
-    `
-  cursor: pointer;
-  background-color: ${props.color};
-  &:hover {
-    background-color: #F6E2C0;
-    font-size: 20px;
-  }`}
-`;
 
 export function buildCalendarData(weekDay, daysInMonth, data) {
   const rowNumber = Math.ceil((daysInMonth + weekDay) / 7);
@@ -55,20 +26,20 @@ export function HeatMapMonth({ firstDay, data, title }) {
   const calendarData = buildCalendarData(weekDay, getDaysInMonth(firstDay), data);
   return (
     <div style={{ margin: "8px 16px", textAlign: "center" }}>
-      <Title>{title}</Title>
+      <h1 className="text-3xl font-semibold mb-4 text-gray-700">{title}</h1>
       {calendarData.map((week, weekIndex) => (
-        <WeekRow key={`${weekIndex}-${firstDay}`}>
+        <div className="flex flex-row" key={`${weekIndex}-${firstDay}`}>
           {week.map((day, dayIndex) => (
             <Day
               key={`${day}-${dayIndex}-${weekIndex}-${firstDay}`}
               data-tooltip={`Votes : ${day.count}`}
-              color={day.color}
-              isDay={Boolean(day.display)}
+              style={{ lineHeight: "3rem", ...(day.display ? { backgroundColor: day.color } : {}) }}
+              className="text-xl text-center cursor-default hover:text-2xl hover:bg-orange-200 w-12 h-12"
             >
               {day.display ? day.display : ""}
             </Day>
           ))}
-        </WeekRow>
+        </div>
       ))}
     </div>
   );

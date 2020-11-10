@@ -7,7 +7,6 @@ import { BetForm } from "./betform.js";
 import useDateState from "@state/useState";
 import { useRefresh } from "@hooks/useRefresh";
 
-const fNovember = parseISO("2020-11-01");
 const fDecember = parseISO("2020-12-01");
 const fJanuary = parseISO("2021-01-01");
 const fFebruary = parseISO("2021-02-01");
@@ -27,7 +26,6 @@ export function App() {
   }, []);
 
   const heatmapData = [
-    ["Novembre", fNovember, dates.filter(({ date }) => isSameMonth(fNovember, date))],
     ["Decembre", fDecember, dates.filter(({ date }) => isSameMonth(fDecember, date))],
     ["Janvier", fJanuary, dates.filter(({ date }) => isSameMonth(fJanuary, date))],
     ["Fevrier", fFebruary, dates.filter(({ date }) => isSameMonth(fFebruary, date))],
@@ -35,14 +33,16 @@ export function App() {
     ["Avril", fApril, dates.filter(({ date }) => isSameMonth(fApril, date))],
   ];
   return (
-    <>
-      <h1>Quand est-ce qu'on sera de nouveau libre ?</h1>
+    <div className="flex justify-center flex-col items-center">
+      <h1 className="text-3xl font-semibold mb-4 text-gray-900">
+        Quand est-ce qu'on sera de nouveau libre ?
+      </h1>
       <Analytics />
-      <div style={{ display: "flex", flexFlow: "row wrap" }}>
+      <div className="flex flex-row flex-wrap justify-center">
         {heatmapData.map(([label, firstDay, monthData]) => (
           <HeatMapMonth key={label} title={label} firstDay={firstDay} data={monthData} />
         ))}
       </div>
-    </>
+    </div>
   );
 }
