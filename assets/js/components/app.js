@@ -18,7 +18,7 @@ export function App() {
   const { dates } = getState();
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch("http://localhost:4000/api/bets");
+      const res = await fetch(`${_baseURL}/api/bets`);
       const json = await res.json();
       updateRawDates(json);
     };

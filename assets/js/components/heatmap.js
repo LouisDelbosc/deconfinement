@@ -30,14 +30,14 @@ export function HeatMapMonth({ firstDay, data, title }) {
       {calendarData.map((week, weekIndex) => (
         <div className="flex flex-row" key={`${weekIndex}-${firstDay}`}>
           {week.map((day, dayIndex) => (
-            <Day
+            <div
               key={`${day}-${dayIndex}-${weekIndex}-${firstDay}`}
               data-tooltip={`Votes : ${day.count}`}
               style={{ lineHeight: "3rem", ...(day.display ? { backgroundColor: day.color } : {}) }}
               className="text-xl text-center cursor-default hover:text-2xl hover:bg-orange-200 w-12 h-12"
             >
               {day.display ? day.display : ""}
-            </Day>
+            </div>
           ))}
         </div>
       ))}

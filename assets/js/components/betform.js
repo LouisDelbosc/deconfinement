@@ -2,10 +2,8 @@ import React from "react";
 import useDateState from "@state/useState";
 import { useForm } from "react-hook-form";
 
-const URL = "http://localhost:4000/api/bets";
-
 const submitBet = (data) => {
-  return fetch("http://localhost:4000/api/bets", {
+  return fetch(`${_baseURL}/api/bets`, {
     method: "POST",
     headers: {
       Accept: "application/json",
