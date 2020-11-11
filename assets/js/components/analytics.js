@@ -7,10 +7,10 @@ export function Analytics() {
   const { averageDate, maxVotedDate, maxVote } = getState();
   return (
     <>
-      {averageDate && <div>La date estime est {format(averageDate, "dd/MM/yyyy")}</div>}
+      {averageDate && <div>La date estimée est {format(averageDate, "dd/MM/yyyy")}</div>}
       {maxVotedDate && (
         <div>
-          Le jour le plus vote est {format(maxVotedDate, "dd/MM/yyyy")} avec {maxVote} votes.
+          Le jour le plus voté est {format(maxVotedDate, "dd/MM/yyyy")} avec {maxVote} votes.
         </div>
       )}
     </>

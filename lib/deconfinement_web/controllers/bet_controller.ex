@@ -24,10 +24,10 @@ defmodule DeconfinementWeb.BetController do
 
     case {Date.compare(min_date, date), Date.compare(date, max_date)} do
       {:gt, _} ->
-        send_error(conn, "La date est trop petite, c'est sur qu'on sera pas libre !")
+        send_error(conn, "La date est trop petite, c'est sûr qu'on sera pas libre !")
 
       {_, :gt} ->
-        send_error(conn, "C'est dans trop longtemps, j'espere qu'on sera libre avant.")
+        send_error(conn, "C'est dans trop longtemps, j'espère qu'on sera libre avant.")
 
       _ ->
         {:ok, _date} = Bets.create_date_bets(%{selected_date: date})

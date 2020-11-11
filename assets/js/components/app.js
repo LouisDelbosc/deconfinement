@@ -1,11 +1,9 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import { HeatMapMonth } from "./heatmap";
 import { Analytics } from "./analytics";
 import { parseISO, isSameMonth } from "date-fns";
-import { BetForm } from "./betform.js";
 
 import useDateState from "@state/useState";
-import { useRefresh } from "@hooks/useRefresh";
 
 const fDecember = parseISO("2020-12-01");
 const fJanuary = parseISO("2021-01-01");

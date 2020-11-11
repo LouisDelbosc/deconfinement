@@ -1,6 +1,6 @@
 import React from "react";
 import { NEUTRAL } from "@state/colors";
-import { parseISO, getDay, getDaysInMonth } from "date-fns";
+import { getDay, getDaysInMonth } from "date-fns";
 
 export function buildCalendarData(weekDay, daysInMonth, data) {
   const rowNumber = Math.ceil((daysInMonth + weekDay) / 7);

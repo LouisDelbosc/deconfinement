@@ -1,5 +1,4 @@
 import React from "react";
-import useDateState from "@state/useState";
 import { useForm } from "react-hook-form";
 
 const submitBet = (data) => {
@@ -26,7 +25,7 @@ export function BetForm({ onSuccess }) {
   const inputClassName = "shadow appearance-none border-2 rounded-md w-4/6 py-2 px-3 sm:mr-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline " + inputColor;
   const onSubmit = (data) => submitBet(data)
     .then(
-      () => {},
+      () => onSuccess(),
       (err) => setError("date", {message: err.date })
     )
   return (
@@ -37,8 +36,8 @@ export function BetForm({ onSuccess }) {
             Quand est-ce qu'on sera libre ?
           </h1>
           <p className="text-gray-600 mb-2">
-            Des centaines de personnes ont pariees sur la date de fin du confinement. Participe-toi
-            aussi et decouvre ce qu'elles ont votes.
+            Des centaines de personnes ont pariées sur la date de fin du confinement. Participe-toi
+            aussi et découvre ce qu'elles ont votées.
           </p>
           <form onSubmit={handleSubmit(onSubmit)}>
             <input
