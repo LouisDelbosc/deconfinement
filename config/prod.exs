@@ -10,8 +10,8 @@ use Mix.Config
 # which you should run after static files are built and
 # before starting your production server.
 config :deconfinement, DeconfinementWeb.Endpoint,
-  url: [host: "https://deconfinement.gigalixirapp.com", port: 443],
-  check_origin: ["//deconfinement.gigalixirapps.com", "//*.discipline-app.com"],
+  url: [host: "https://www.quandestcequonseralibre.fr", port: 443],
+  check_origin: ["//deconfinement.gigalixirapps.com", "//*.quandestcequonseralibre.fr"],
   cache_static_manifest: "priv/static/cache_manifest.json"
 
 # Do not print debug messages in production
