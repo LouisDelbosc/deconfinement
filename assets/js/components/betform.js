@@ -1,4 +1,5 @@
 import React from "react";
+import useDateState from "@state/useState";
 import { useForm } from "react-hook-form";
 
 const submitBet = (data) => {
@@ -9,25 +10,32 @@ const submitBet = (data) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
-  }).then(response => {
-    if(!response.ok) {
-      return response.json().then(res => Promise.reject(res.errors))
+  }).then((response) => {
+    if (!response.ok) {
+      return response.json().then((res) => Promise.reject(res.errors));
     }
-    return response
+    return response;
   });
 };
 
 export function BetForm({ onSuccess }) {
   const { register, handleSubmit, errors, setError } = useForm();
-  const inputColor = errors && errors.date ?
-                     "border-red-500 hover:border-red-700" :
-                     "border-indigo-500 hover:border-indigo-700";
-  const inputClassName = "shadow appearance-none border-2 rounded-md w-4/6 py-2 px-3 sm:mr-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline " + inputColor;
-  const onSubmit = (data) => submitBet(data)
-    .then(
-      () => onSuccess(),
-      (err) => setError("date", {message: err.date })
-    )
+  const { setVotedDate } = useDateState();
+  const inputColor =
+    errors && errors.date
+      ? "border-red-500 hover:border-red-700"
+      : "border-indigo-500 hover:border-indigo-700";
+  const inputClassName =
+    "shadow appearance-none border-2 rounded-md w-4/6 py-2 px-3 sm:mr-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline " +
+    inputColor;
+  const onSubmit = (data) =>
+    submitBet(data).then(
+      () => {
+        setVotedDate(data.date);
+        onSuccess();
+      },
+      (err) => setError("date", { message: err.date })
+    );
   return (
     <div className="h-screen">
       <div className="flex p-12 h-full items-center justify-center">
@@ -36,8 +44,8 @@ export function BetForm({ onSuccess }) {
             Quand est-ce qu'on sera libre ?
           </h1>
           <p className="text-gray-600 mb-2">
-            Des centaines de personnes ont pariées sur la date de fin du confinement. Participe-toi
-            aussi et découvre ce qu'elles ont votées.
+            Des centaines de personnes ont parié sur la date de fin du confinement. Participe, toi
+            aussi, et découvre leurs votes!
           </p>
           <form onSubmit={handleSubmit(onSubmit)}>
             <input
@@ -54,7 +62,7 @@ export function BetForm({ onSuccess }) {
               value="Voter"
             />
           </form>
-          {errors.date && <span className="text-red-600 text-sm ml-1">{errors.date.message}</span> }
+          {errors.date && <span className="text-red-600 text-sm ml-1">{errors.date.message}</span>}
         </div>
       </div>
       <div
@@ -92,4 +100,4 @@ export function BetForm({ onSuccess }) {
       </div>
     </div>
   );
-};
+}

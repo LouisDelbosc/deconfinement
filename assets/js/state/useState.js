@@ -6,6 +6,7 @@ import { getHeatColor } from "./colors";
 const initialState = {
   rawDates: [],
   dates: [],
+  votedDate: null,
   averageDate: null,
   maxVotedDate: null,
   maxVote: 0,
@@ -14,6 +15,11 @@ const initialState = {
 const [getState, updateState] = createSingleton(initialState);
 
 export default function useState() {
+  const setVotedDate = (dateFromForm) => {
+    const parsedDate = parseISO(dateFromForm);
+    updateState((state) => ({ ...state, votedDate: parsedDate }));
+  };
+
   const updateRawDates = (newRawDates) => {
     const parsedDates = (newRawDates || []).map(({ date, ...other }) => {
       const parsedDate = parseISO(date);
@@ -27,14 +33,15 @@ export default function useState() {
       color: getHeatColor(date.count, maxVotedDate.count),
     }));
 
-    updateState({
+    updateState((state) => ({
+      ...state,
       rawDates: newRawDates,
       dates,
       maxVotedDate: maxVotedDate.date,
       maxVote: maxVotedDate.count,
       averageDate,
-    });
+    }));
   };
 
-  return { getState, updateRawDates, updateState };
+  return { getState, setVotedDate, updateRawDates, updateState };
 }
