@@ -10,12 +10,25 @@ const submitBet = (data) => {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(data),
+  }).then(response => {
+    if(!response.ok) {
+      return response.json().then(res => Promise.reject(res.errors))
+    }
+    return response
   });
 };
 
 export function BetForm({ onSuccess }) {
-  const { register, handleSubmit } = useForm();
-  const onSubmit = (data) => submitBet(data).then(onSuccess);
+  const { register, handleSubmit, errors, setError } = useForm();
+  const inputColor = errors && errors.date ?
+                     "border-red-500 hover:border-red-700" :
+                     "border-indigo-500 hover:border-indigo-700";
+  const inputClassName = "shadow appearance-none border-2 rounded-md w-4/6 py-2 px-3 sm:mr-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline " + inputColor;
+  const onSubmit = (data) => submitBet(data)
+    .then(
+      () => {},
+      (err) => setError("date", {message: err.date })
+    )
   return (
     <div className="h-screen">
       <div className="flex p-12 h-full items-center justify-center">
@@ -30,18 +43,19 @@ export function BetForm({ onSuccess }) {
           <form onSubmit={handleSubmit(onSubmit)}>
             <input
               type="date"
-              className="shadow appearance-none border-2 border-indigo-500 hover:border-indigo-700 rounded-md w-4/6 py-2 px-3 mr-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+              className={inputClassName}
               name="date"
               min="2020-12-01"
               max="2021-12-24"
               ref={register}
             />
             <input
-              className="bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-full w-24"
+              className="border-2 border-indigo-700 bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-full sm:w-24 outline-none"
               type="submit"
               value="Voter"
             />
           </form>
+          {errors.date && <span className="text-red-600 text-sm ml-1">{errors.date.message}</span> }
         </div>
       </div>
       <div
@@ -79,5 +93,4 @@ export function BetForm({ onSuccess }) {
       </div>
     </div>
   );
-}
-16;
+};

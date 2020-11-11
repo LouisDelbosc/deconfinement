@@ -24,12 +24,6 @@ defmodule Deconfinement.BetsTest do
       assert Bets.list_date_bets() == [date_bets]
     end
 
-    test "list_date_bets_formated/0 returns all date_bets" do
-      date_bets_fixture()
-      date_bets_formated = Bets.list_date_bets_formated()
-      assert [%{selected_date: ~D[2010-04-17], created_at: _date}] = date_bets_formated
-    end
-
     test "get_date_bets!/1 returns the date_bets with given id" do
       date_bets = date_bets_fixture()
       assert Bets.get_date_bets!(date_bets.id) == date_bets

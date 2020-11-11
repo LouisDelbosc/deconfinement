@@ -7,6 +7,5 @@ defmodule Deconfinement.Repo.Migrations.CreateDateBets do
 
       timestamps()
     end
-
   end
 end

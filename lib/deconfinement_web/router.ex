@@ -41,6 +41,7 @@ defmodule DeconfinementWeb.Router do
 
     get "/*path", PageController, :index
   end
+
   # Other scopes may use custom stacks.
   # scope "/api", DeconfinementWeb do
   #   pipe_through :api
