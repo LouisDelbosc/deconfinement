@@ -31,7 +31,7 @@ export function App() {
     ["Avril", fApril, dates.filter(({ date }) => isSameMonth(fApril, date))],
   ];
   return (
-    <div className="flex justify-center flex-col items-center">
+    <div className="flex justify-center flex-col items-center p-8">
       <h1 className="text-3xl font-semibold mb-4 text-gray-900">
         Quand est-ce qu'on sera de nouveau libre ?
       </h1>

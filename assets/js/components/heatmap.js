@@ -21,20 +21,29 @@ const chunk = (arr, size) =>
     arr.slice(i * size, i * size + size)
   );
 
+const dayProps = (day) => {
+  const dataTooltip = day.display ? {'data-tooltip': `Votes : ${day.count}` } : {};
+  const style = {  ...(day.display ? { backgroundColor: day.color } : {}) };
+  const className = day.display ? "text-xl text-center cursor-default hover:text-2xl hover:bg-orange-200 w-10 h-10 leading-10" : " w-10 h-10 leading-10"
+  return {
+    ...dataTooltip,
+    className,
+    style
+  }
+}
+
 export function HeatMapMonth({ firstDay, data, title }) {
   const weekDay = (7 + getDay(firstDay) - 1) % 7;
   const calendarData = buildCalendarData(weekDay, getDaysInMonth(firstDay), data);
   return (
-    <div style={{ margin: "8px 16px", textAlign: "center" }}>
+    <div className="text-center my-3" >
       <h1 className="text-3xl font-semibold mb-4 text-gray-700">{title}</h1>
       {calendarData.map((week, weekIndex) => (
         <div className="flex flex-row" key={`${weekIndex}-${firstDay}`}>
           {week.map((day, dayIndex) => (
             <div
               key={`${day}-${dayIndex}-${weekIndex}-${firstDay}`}
-              data-tooltip={`Votes : ${day.count}`}
-              style={{ lineHeight: "3rem", ...(day.display ? { backgroundColor: day.color } : {}) }}
-              className="text-xl text-center cursor-default hover:text-2xl hover:bg-orange-200 w-12 h-12"
+              {...dayProps(day)}
             >
               {day.display ? day.display : ""}
             </div>
