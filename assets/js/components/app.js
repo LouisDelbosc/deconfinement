@@ -31,12 +31,9 @@ export function App() {
     ["Avril", fApril, dates.filter(({ date }) => isSameMonth(fApril, date))],
   ];
   return (
-    <div className="flex justify-center flex-col items-center p-8">
-      <h1 className="text-3xl font-semibold mb-4 text-gray-900">
-        Quand est-ce qu'on sera de nouveau libre ?
-      </h1>
+    <div className="flex justify-center flex-col items-center">
       <Analytics />
-      <div className="flex flex-row flex-wrap justify-center">
+      <div className="flex flex-row flex-wrap justify-around p-8">
         {heatmapData.map(([label, firstDay, monthData]) => (
           <HeatMapMonth key={label} title={label} firstDay={firstDay} data={monthData} />
         ))}

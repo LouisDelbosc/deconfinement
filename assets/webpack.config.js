@@ -45,13 +45,22 @@ module.exports = (env, options) => {
             'postcss-loader',
             'sass-loader',
           ],
-        }
+        },
+        {
+          test: /\.(png|jp(e*)g|svg|gif)$/,
+          use: [
+            {
+              loader: 'file-loader',
+            },
+          ],
+        },
       ]
     },
     resolve: {
       alias: {
         '@hooks': path.resolve(__dirname, './js/hooks/'),
         '@state': path.resolve(__dirname, './js/state/'),
+        '@static': path.resolve(__dirname, './static/'),
       }
     },
     plugins: [

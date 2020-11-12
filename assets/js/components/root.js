@@ -4,5 +4,5 @@ import { App } from "./app";
 
 export default function Root() {
   const [hasAnswer, setHasAnswer] = useState(false);
-  return hasAnswer ? <App /> : <BetForm onSuccess={() => setHasAnswer(true)} />;
+  return !hasAnswer ? <App /> : <BetForm onSuccess={() => setHasAnswer(true)} />;
 }

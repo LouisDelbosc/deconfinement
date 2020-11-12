@@ -70,8 +70,8 @@ export function BetForm({ onSuccess }) {
         className="absolute top-0 left-0 width-auto height-auto overflow-hidden"
       >
         <div
-          style={{ backgroundColor: "#ffa8ab", top: "-10px", left: "-20px" }}
-          className="relative rounded-full w-56 h-56"
+          style={{ top: "-10px", left: "-20px" }}
+          className="relative rounded-full w-56 h-56 bg-pink-400"
         />
       </div>
       <div
@@ -80,13 +80,12 @@ export function BetForm({ onSuccess }) {
       >
         <div
           style={{
-            backgroundColor: "#6b4ee7",
             bottom: "-50px",
             right: "-100px",
             width: "325px",
             height: "325px",
           }}
-          className="relative rounded-full"
+          className="relative rounded-full bg-purple-600"
         />
       </div>
       <div
@@ -94,8 +93,7 @@ export function BetForm({ onSuccess }) {
         className="absolute width-auto height-auto overflow-hidden"
       >
         <div
-          style={{ backgroundColor: "#25d776" }}
-          className="relative rounded-full bottom-0 left-0 w-32 h-32"
+          className="relative rounded-full bottom-0 bg-green-400 left-0 w-32 h-32"
         />
       </div>
     </div>
