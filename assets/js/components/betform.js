@@ -92,9 +92,7 @@ export function BetForm({ onSuccess }) {
         style={{ zIndex: "-1", bottom: "20%", left: "10%" }}
         className="absolute width-auto height-auto overflow-hidden"
       >
-        <div
-          className="relative rounded-full bottom-0 bg-green-400 left-0 w-32 h-32"
-        />
+        <div className="relative rounded-full bottom-0 bg-green-400 left-0 w-32 h-32" />
       </div>
     </div>
   );
