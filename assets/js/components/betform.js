@@ -32,7 +32,7 @@ export function BetForm({ onSuccess }) {
     submitBet(data).then(
       () => {
         setVotedDate(data.date);
-        onSuccess();
+        onSuccess(data.date);
       },
       (err) => setError("date", { message: err.date })
     );
