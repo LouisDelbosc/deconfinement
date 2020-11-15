@@ -48,12 +48,7 @@ export function BetForm({ onSuccess }) {
             aussi, et découvre leurs votes!
           </p>
           <form onSubmit={handleSubmit(onSubmit)}>
-            <input
-              type="date"
-              className={inputClassName}
-              name="date"
-              ref={register}
-            />
+            <input type="date" className={inputClassName} name="date" ref={register} />
             <input
               className="border-2 border-indigo-700 bg-indigo-500 hover:bg-indigo-700 text-white font-bold py-2 px-4 rounded-full sm:w-24 outline-none"
               type="submit"

@@ -3,7 +3,7 @@ import { parseISO } from "date-fns";
 import { computeAnalytics } from "./analytics";
 import { getHeatColor } from "./colors";
 
-const LOCAL_STORAGE_NAME = "deconfinement-selected-date"
+const LOCAL_STORAGE_NAME = "deconfinement-selected-date";
 
 const localStorageDate = localStorage.getItem(LOCAL_STORAGE_NAME) || null;
 
@@ -15,7 +15,6 @@ const initialState = {
   maxVotedDate: null,
   maxVote: 0,
 };
-
 
 const [getState, updateState] = createSingleton({
   ...initialState,
