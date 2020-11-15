@@ -34,10 +34,11 @@ export function App() {
   return (
     <div className="flex justify-center flex-col items-center">
       <button
-        className="fixed z-10 px-4 py-2 top-0 m-2 right-0 bg-red-500 rounded-full"
-        onClick={() => (console.log('onclick'), clearState())}
+        className="fixed shadow z-10 px-4 py-2 top-0 m-4 right-0 bg-red-500 rounded-full"
+        onClick={clearState}
       >
-        <img className="w-8 h-8" src={ArrowBackSvg} alt="retour au vote" />
+        <img className="w-8 h-8 md:hidden" src={ArrowBackSvg} alt="retour au vote" />
+        <span className="hidden md:block font-semibold">Revoter</span>
       </button>
       <Analytics />
       <div className="flex flex-row flex-wrap justify-around p-8">

@@ -8,7 +8,5 @@ export default function Root() {
   const state = getState()
   const hasVotedDate = Boolean(state.votedDate);
   const handleSuccess = (date) => setVotedDate(date);
-  console.log('hasVotedDate', hasVotedDate)
-  console.log('state', {state})
   return hasVotedDate ? <App /> : <BetForm onSuccess={handleSuccess} />;
 }

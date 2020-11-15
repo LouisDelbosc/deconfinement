@@ -1,11 +1,11 @@
-export const NEUTRAL = "#ECEBE9";
-const BLUE = "#85C1E9";
-const GREEN = "#76D7C4";
-const YELLOW = "#F4D03F";
-const ORANGE = "#F39C12";
-const RED = "#E74C3C";
+export const NEUTRAL = "bg-orange-100";
+const VERY_LOW = "bg-yellow-300";
+const LOW = "bg-orange-300";
+const SOME = "bg-red-300";
+const MANY = "bg-red-500";
+const MOST = "bg-red-600";
 
-const COLORS = [NEUTRAL, BLUE, GREEN, YELLOW, ORANGE, RED];
+const COLORS = [NEUTRAL, VERY_LOW, LOW, SOME, MANY, MOST];
 
 export function getHeatColor(value, maxValue) {
   return maxValue > 0 ? COLORS[Math.floor((value / maxValue) * 5)] : NEUTRAL;

@@ -23,14 +23,12 @@ const chunk = (arr, size) =>
 
 const dayProps = (day) => {
   const dataTooltip = day.display ? { "data-tooltip": `Votes : ${day.count}` } : {};
-  const style = { ...(day.display ? { backgroundColor: day.color } : {}) };
   const className = day.display
-    ? "text-xl text-center cursor-default hover:text-2xl hover:bg-orange-200 w-10 h-10 leading-10"
+    ? "text-xl text-center cursor-default hover:text-2xl hover:bg-orange-200 w-10 h-10 leading-10 " + day.color
     : " w-10 h-10 leading-10";
   return {
     ...dataTooltip,
     className,
-    style,
   };
 };
 
