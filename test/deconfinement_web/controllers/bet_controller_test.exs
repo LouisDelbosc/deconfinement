@@ -24,11 +24,23 @@ defmodule DeconfinementWeb.BetControllerTest do
 
   test "POST /api/bets with date too early", %{conn: conn} do
     conn = post(conn, "/api/bets", %{"date" => "2020-11-01"})
-    assert json_response(conn, 400) == %{"errors" => %{"date" => "La date est trop petite, c'est sûr qu'on sera pas libre !"}}
+
+    assert json_response(conn, 400) == %{
+             "errors" => %{
+               "date" =>
+                 "La date est trop petite, c'est sûr qu'on sera pas libre avant le 1er décembre MINIMUM!"
+             }
+           }
   end
 
   test "POST /api/bets with date too far", %{conn: conn} do
     conn = post(conn, "/api/bets", %{"date" => "2030-11-01"})
-    assert json_response(conn, 400) == %{"errors" => %{"date" => "C'est dans trop longtemps, j'espère qu'on sera libre avant."}}
+
+    assert json_response(conn, 400) == %{
+             "errors" => %{
+               "date" =>
+                 "C'est dans trop longtemps, j'espère qu'on sera libre avant Noël prochain quand même."
+             }
+           }
   end
 end

@@ -52,8 +52,6 @@ export function BetForm({ onSuccess }) {
               type="date"
               className={inputClassName}
               name="date"
-              min="2020-12-01"
-              max="2021-12-24"
               ref={register}
             />
             <input

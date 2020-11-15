@@ -3,6 +3,6 @@ defmodule DeconfinementWeb.PageControllerTest do
 
   test "GET /", %{conn: conn} do
     conn = get(conn, "/")
-    assert html_response(conn, 200) =~ "A quand la lib"
+    assert html_response(conn, 200) =~ "quand la lib"
   end
 end
