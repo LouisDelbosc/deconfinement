@@ -37,7 +37,7 @@ export function HeatMapMonth({ firstDay, data, title }) {
   const weekDay = (7 + getDay(firstDay) - 1) % 7;
   const calendarData = buildCalendarData(weekDay, getDaysInMonth(firstDay), data);
   return (
-    <div className="text-center my-3 sm:mx-4">
+    <div className="text-center mx-4">
       <h1 className="text-3xl font-semibold mb-4 text-gray-700">{title}</h1>
       {calendarData.map((week, weekIndex) => (
         <div className="flex flex-row" key={`${weekIndex}-${firstDay}`}>
