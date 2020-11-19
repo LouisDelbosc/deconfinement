@@ -5,6 +5,23 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>À quand la liberté ?</title>
+
+    <meta property='og:title' content="À quand la liberté ?"/>
+    <meta property='og:image' content="<%= Routes.static_path(@conn, "/images/preview.png") %>"/>
+    <meta property='og:description' content="Des centaines de personnes ont parié sur la date de fin du confinement. Participe, toi aussi, et découvre leurs votes!"/>
+    <meta property='og:url' content="<%= DeconfinementWeb.Endpoint.url() %>"/>
+
+    <link rel="apple-touch-icon" sizes="180x180" href="<%= Routes.static_path(@conn, "/images/apple-touch-icon.png") %>">
+    <link rel="icon" type="image/png" sizes="32x32" href="<%= Routes.static_path(@conn, "/images/favicon-32x32.png") %>">
+    <link rel="icon" type="image/png" sizes="16x16" href="<%= Routes.static_path(@conn, "/images/favicon-16x16.png") %>">
+    <link rel="manifest" href="<%= Routes.static_path(@conn, "/images/site.webmanifest") %>">
+    <link rel="mask-icon" href="<%= Routes.static_path(@conn, "/images/safari-pinned-tab.svg") %>" color="#5bbad5">
+    <link rel="shortcut icon" href="<%= Routes.static_path(@conn, "/images/favicon.ico") %>">
+    <meta name="msapplication-TileColor" content="#da532c">
+    <meta name="msapplication-config" href="<%= Routes.static_path(@conn, "/images/browserconfig.xml") %>">
+    <meta name="theme-color" content="#ffffff">
+
+
     <link rel="stylesheet" href="<%= Routes.static_path(@conn, "/css/app.css") %>"/>
     <script>window._baseURL = "<%= DeconfinementWeb.Endpoint.url() %>"</script>
     <script defer type="text/javascript" src="<%= Routes.static_path(@conn, "/js/app.js") %>"></script>
