@@ -3,7 +3,7 @@ import { parseISO } from "date-fns";
 import { computeAnalytics } from "./analytics";
 import { getHeatColor } from "./colors";
 
-const LOCAL_STORAGE_NAME = "deconfinement-selected-date";
+export const LOCAL_STORAGE_NAME = "deconfinement-selected-date";
 
 const localStorageDate = localStorage.getItem(LOCAL_STORAGE_NAME) || null;
 

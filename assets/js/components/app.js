@@ -22,7 +22,7 @@ const fNovember = parseISO("2021-11-01");
 const fDecember21 = parseISO("2021-12-01");
 
 export function App() {
-  const { getState, updateRawDates, clearState } = useDateState();
+  const { getState, updateRawDates } = useDateState();
   const { dates } = getState();
   useEffect(() => {
     const fetchData = async () => {
@@ -69,12 +69,6 @@ export function App() {
           ))}
         </Slider>
       </div>
-      <button
-        className="shadow z-10 px-6 py-4 top-0 mb-4 right-0 bg-red-500 rounded-full"
-        onClick={clearState}
-      >
-        <span className="text-xl font-semibold">Voter de nouveau</span>
-      </button>
     </div>
   );
 }

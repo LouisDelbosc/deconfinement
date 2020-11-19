@@ -1,8 +1,12 @@
 import React from "react";
-import useDateState from "@state/useState";
+import useDateState, { LOCAL_STORAGE_NAME } from "@state/useState";
 import { useForm } from "react-hook-form";
 
 const submitBet = (data) => {
+  const hasVoted = localStorage.getItem(LOCAL_STORAGE_NAME) || null
+  if (hasVoted) {
+    return Promise.reject({ date: "Tu as deja vote! Tricheur!"})
+  }
   return fetch(`${_baseURL}/api/bets`, {
     method: "POST",
     headers: {
