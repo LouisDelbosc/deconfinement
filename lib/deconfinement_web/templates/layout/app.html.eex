@@ -1,16 +1,29 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-2PNHS7CV63"></script>
+    <script>
+     window.dataLayer = window.dataLayer || [];
+     function gtag(){dataLayer.push(arguments);}
+     gtag('js', new Date());
+
+     gtag('config', 'G-2PNHS7CV63');
+    </script>
+
     <meta charset="utf-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>À quand la liberté ?</title>
 
+    <!-- preview for social networks -->
     <meta property='og:title' content="À quand la liberté ?"/>
     <meta property='og:image' content="<%= Routes.static_path(@conn, "/images/preview.png") %>"/>
     <meta property='og:description' content="Des centaines de personnes ont parié sur la date de fin du confinement. Participe, toi aussi, et découvre leurs votes!"/>
     <meta property='og:url' content="<%= DeconfinementWeb.Endpoint.url() %>"/>
 
+    <!-- favicon on all devices and browsers -->
     <link rel="apple-touch-icon" sizes="180x180" href="<%= Routes.static_path(@conn, "/images/apple-touch-icon.png") %>">
     <link rel="icon" type="image/png" sizes="32x32" href="<%= Routes.static_path(@conn, "/images/favicon-32x32.png") %>">
     <link rel="icon" type="image/png" sizes="16x16" href="<%= Routes.static_path(@conn, "/images/favicon-16x16.png") %>">
