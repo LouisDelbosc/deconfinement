@@ -9,6 +9,7 @@ export function Analytics() {
   const { getState } = useDateState();
   const { dates, averageDate, votedDate, maxVotedDate, maxVote } = getState();
   const countSameDatesAsYou = dates.find((date) => isSameDay(date.date, votedDate))?.count;
+  const voteCount = dates.reduce((acc, date) => acc + date.count, 0);
   return (
     <div className="flex flex-row flex-wrap w-full">
       <CountSameDatesAsYou
@@ -16,7 +17,7 @@ export function Analytics() {
         countSameDatesAsYou={countSameDatesAsYou}
         votedDate={votedDate}
       />
-      <MaxVotedDate className="bg-pink-400" maxVotedDate={maxVotedDate} maxVote={maxVote} />
+      <MaxVotedDate className="bg-pink-400" maxVotedDate={maxVotedDate} maxVote={maxVote} voteCount={voteCount} />
       <EstimatedDate className="bg-green-400" averageDate={averageDate} />
     </div>
   );
@@ -42,7 +43,7 @@ function CountSameDatesAsYou({ className, countSameDatesAsYou, votedDate }) {
   );
 }
 
-function MaxVotedDate({ className, maxVotedDate, maxVote }) {
+function MaxVotedDate({ className, maxVotedDate, maxVote, voteCount }) {
   const date = maxVotedDate && format(maxVotedDate, "dd/MM/yyyy");
   return (
     <div className={blockCls(className)}>
@@ -52,7 +53,7 @@ function MaxVotedDate({ className, maxVotedDate, maxVote }) {
       </div>
       <p className="text-lg text-orange-100">
         C'est la date qui a reçu le plus de votes. {maxVote} personnes pensent que ça se terminera à
-        cette date. Seul l'avenir nous le dira.
+        cette date sur {voteCount} votants. Seul l'avenir nous le dira.
       </p>
     </div>
   );
