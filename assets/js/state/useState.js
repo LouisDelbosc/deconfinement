@@ -1,7 +1,7 @@
 import { createSingleton } from "../hooks/useSingleton";
-import { format, parseISO } from "date-fns";
+import { format, parseISO, isSameDay } from "date-fns";
 import { computeAnalytics } from "./analytics";
-import { getHeatColor, isSameDay } from "./colors";
+import { getHeatColor } from "./colors";
 
 export const LOCAL_STORAGE_NAME = "deconfinement-selected-date-2";
 
@@ -32,8 +32,8 @@ export default function useState() {
   };
 
   const canVote = () => {
-    const { selectedDate, votedAt } = localStorageDateDefault;
-    return !votedAt || (isSameDay(parseISO(votedAt), new Date()));
+    const { selectedDate, votedAt } = JSON.parse(localStorage.getItem(LOCAL_STORAGE_NAME)) || {selectedDate: null, votedAt: null};
+    return !votedAt || isSameDay(parseISO(votedAt), new Date());
   };
 
   const updateRawDates = (newRawDates) => {
