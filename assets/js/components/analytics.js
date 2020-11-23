@@ -7,7 +7,7 @@ import { format, isSameDay } from "date-fns";
 
 export function Analytics() {
   const { getState } = useDateState();
-  const { dates, averageDate, votedDate, maxVotedDate, maxVote } = getState();
+  const { dates, medianDate, votedDate, maxVotedDate, maxVote } = getState();
   const countSameDatesAsYou = dates.find((date) => isSameDay(date.date, votedDate))?.count;
   const voteCount = dates.reduce((acc, date) => acc + date.count, 0);
   return (
@@ -18,7 +18,7 @@ export function Analytics() {
         votedDate={votedDate}
       />
       <MaxVotedDate className="bg-pink-400" maxVotedDate={maxVotedDate} maxVote={maxVote} voteCount={voteCount} />
-      <EstimatedDate className="bg-green-400" averageDate={averageDate} />
+      <EstimatedDate className="bg-green-400" medianDate={medianDate} />
     </div>
   );
 }
@@ -59,8 +59,8 @@ function MaxVotedDate({ className, maxVotedDate, maxVote, voteCount }) {
   );
 }
 
-function EstimatedDate({ className, averageDate }) {
-  const date = averageDate && format(averageDate, "dd/MM/yyyy");
+function EstimatedDate({ className, medianDate }) {
+  const date = medianDate && format(medianDate, "dd/MM/yyyy");
   return (
     <div className={blockCls(className)}>
       <div className="flex flex-col items-center mb-8 lg:mb-12">
@@ -68,11 +68,11 @@ function EstimatedDate({ className, averageDate }) {
         <h2 className="medal medal--gold">{date}</h2>
       </div>
       <p className="text-lg text-orange-100">
-        Il s'agit de la date moyenne calculée par l'intelligence collective de tout les votants.
-        C'est un peu long à expliquer sur ce petit paragraphe donc voici le{" "}
-        <a className="text-blue-500" href="https://fr.wikipedia.org/wiki/Intelligence_collective">
-          lien wikipedia
-        </a>{" "}
+        Il s'agit de la date mediane calculée par l'intelligence collective de tout les votants.
+        C'est un peu long à expliquer sur ce petit paragraphe donc voici une{" "}
+        <a className="text-blue-500" href="https://www.youtube.com/watch?v=cWTn73BZs8c">
+          excellente vidéo
+        </a>{" "}sur le sujet
         ;)
       </p>
     </div>

@@ -11,7 +11,7 @@ const initialState = {
   rawDates: [],
   dates: [],
   votedDate: null,
-  averageDate: null,
+  medianDate: null,
   maxVotedDate: null,
   maxVote: 0,
 };
@@ -34,7 +34,7 @@ export default function useState() {
       return { date: parsedDate, day: parsedDate.getDate(), ...other };
     });
 
-    const { averageDate, maxVotedDate } = computeAnalytics(parsedDates);
+    const { medianDate, maxVotedDate } = computeAnalytics(parsedDates);
 
     const dates = parsedDates.map((date) => ({
       ...date,
@@ -47,7 +47,7 @@ export default function useState() {
       dates,
       maxVotedDate: maxVotedDate.date,
       maxVote: maxVotedDate.count,
-      averageDate,
+      medianDate,
     }));
   };
 
