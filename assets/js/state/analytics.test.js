@@ -25,4 +25,4 @@ test("computeAnalytics should return correct medianDate", () => {
   ];
   const { medianDate } = computeAnalytics(parsedDates);
   expect(isSameDay(medianDate, new Date(2020, 10, 3))).toBe(true);
-})
+});

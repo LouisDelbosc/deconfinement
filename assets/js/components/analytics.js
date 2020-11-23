@@ -17,7 +17,12 @@ export function Analytics() {
         countSameDatesAsYou={countSameDatesAsYou}
         votedDate={votedDate}
       />
-      <MaxVotedDate className="bg-pink-400" maxVotedDate={maxVotedDate} maxVote={maxVote} voteCount={voteCount} />
+      <MaxVotedDate
+        className="bg-pink-400"
+        maxVotedDate={maxVotedDate}
+        maxVote={maxVote}
+        voteCount={voteCount}
+      />
       <EstimatedDate className="bg-green-400" medianDate={medianDate} />
     </div>
   );
@@ -72,8 +77,8 @@ function EstimatedDate({ className, medianDate }) {
         C'est un peu long à expliquer sur ce petit paragraphe donc voici une{" "}
         <a className="text-blue-500" href="https://www.youtube.com/watch?v=cWTn73BZs8c">
           excellente vidéo
-        </a>{" "}sur le sujet
-        ;)
+        </a>{" "}
+        sur le sujet ;)
       </p>
     </div>
   );

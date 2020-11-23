@@ -4,7 +4,7 @@ import { useForm } from "react-hook-form";
 
 const submitBet = (data, getHasVoted) => {
   if (!getHasVoted()) {
-    return Promise.reject({ date: "Tu as deja vote! Tricheur!"})
+    return Promise.reject({ date: "Tu as deja vote! Tricheur!" });
   }
   return fetch(`${_baseURL}/api/bets`, {
     method: "POST",

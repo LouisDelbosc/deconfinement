@@ -25,7 +25,7 @@ export function App() {
   const { getState, updateRawDates, canVote, clearState } = useDateState();
   const { dates } = getState();
   const canVoteAgain = canVote();
-  const handleClear = () => canVoteAgain ? clearState() : {};
+  const handleClear = () => (canVoteAgain ? clearState() : {});
   useEffect(() => {
     const fetchData = async () => {
       const res = await fetch(`${_baseURL}/api/bets`);
@@ -72,9 +72,9 @@ export function App() {
         </Slider>
       </div>
       <button
-        className={
-        `shadow z-10 px-6 py-4 top-0 mb-4 right-0 bg-red-500 rounded-full ${canVoteAgain && "opacity-50 cursor-not-allowed"}`
-        }
+        className={`shadow z-10 px-6 py-4 top-0 mb-4 right-0 bg-red-500 rounded-full ${
+          canVoteAgain && "opacity-50 cursor-not-allowed"
+        }`}
         disabled={canVoteAgain}
         onClick={clearState}
       >

@@ -1,4 +1,4 @@
-import {compareAsc} from 'date-fns';
+import { compareAsc } from "date-fns";
 
 const maxVoteDateInitialValue = { date: null, count: 0 };
 export function maxVotedDateReducer(acc, dateObject) {
@@ -7,11 +7,14 @@ export function maxVotedDateReducer(acc, dateObject) {
 
 export function mediansDate(parsedDates, totalCount) {
   const sortedDate = parsedDates.sort((o1, o2) => compareAsc(o1.date, o2.date));
-  const [ date, _ ] = sortedDate.reduce(([medianDate, medianCount], { date, count}) => {
-    if (medianCount === 0) return [medianDate, medianCount];
-    if (medianCount <= count) return [date, 0];
-    return [date, medianCount - count];
-  }, [null, totalCount/2]);
+  const [date, _] = sortedDate.reduce(
+    ([medianDate, medianCount], { date, count }) => {
+      if (medianCount === 0) return [medianDate, medianCount];
+      if (medianCount <= count) return [date, 0];
+      return [date, medianCount - count];
+    },
+    [null, totalCount / 2]
+  );
   return date;
 }
 

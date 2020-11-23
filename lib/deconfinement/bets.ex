@@ -111,5 +111,4 @@ defmodule Deconfinement.Bets do
 
   # Enum.map(fn id -> Deconfinement.Bets.get_date_bets!(id) |> Deconfinement.Bets.delete_date_bets() end)
   # Deconfinement.Bets.DateBets |> where([b], fragment("?::date", b.selected_date) == ^~D[2020-12-19]) |> order_by([desc: :inserted_at]) |> Repo.all()
-
 end
