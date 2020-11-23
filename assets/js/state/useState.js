@@ -1,11 +1,11 @@
 import { createSingleton } from "../hooks/useSingleton";
-import { parseISO } from "date-fns";
+import { format, parseISO } from "date-fns";
 import { computeAnalytics } from "./analytics";
-import { getHeatColor } from "./colors";
+import { getHeatColor, isSameDay } from "./colors";
 
-export const LOCAL_STORAGE_NAME = "deconfinement-selected-date";
+export const LOCAL_STORAGE_NAME = "deconfinement-selected-date-2";
 
-const localStorageDate = localStorage.getItem(LOCAL_STORAGE_NAME) || null;
+const localStorageDateDefault = JSON.parse(localStorage.getItem(LOCAL_STORAGE_NAME)) || {selectedDate: null, votedAt: null};
 
 const initialState = {
   rawDates: [],
@@ -18,14 +18,22 @@ const initialState = {
 
 const [getState, updateState] = createSingleton({
   ...initialState,
-  votedDate: localStorageDate && parseISO(localStorageDate),
+  votedDate: localStorageDateDefault && localStorageDateDefault.selectedDate && parseISO(localStorageDateDefault.selectedDate),
 });
 
 export default function useState() {
   const setVotedDate = (dateFromForm) => {
-    localStorage.setItem(LOCAL_STORAGE_NAME, dateFromForm);
+    localStorage.setItem(LOCAL_STORAGE_NAME, JSON.stringify({
+      selectedDate: dateFromForm,
+      votedAt: format(new Date(), "yyyy-MM-dd"),
+    }));
     const parsedDate = parseISO(dateFromForm);
     updateState((state) => ({ ...state, votedDate: parsedDate }));
+  };
+
+  const canVote = () => {
+    const { selectedDate, votedAt } = localStorageDateDefault;
+    return !votedAt || (isSameDay(parseISO(votedAt), new Date()));
   };
 
   const updateRawDates = (newRawDates) => {
@@ -56,5 +64,5 @@ export default function useState() {
     updateState(initialState);
   };
 
-  return { getState, setVotedDate, updateRawDates, updateState, clearState };
+  return { getState, setVotedDate, updateRawDates, updateState, clearState, canVote };
 }

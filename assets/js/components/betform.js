@@ -1,10 +1,9 @@
 import React from "react";
-import useDateState, { LOCAL_STORAGE_NAME } from "@state/useState";
+import useDateState from "@state/useState";
 import { useForm } from "react-hook-form";
 
-const submitBet = (data) => {
-  const hasVoted = localStorage.getItem(LOCAL_STORAGE_NAME) || null
-  if (hasVoted) {
+const submitBet = (data, getHasVoted) => {
+  if (!getHasVoted()) {
     return Promise.reject({ date: "Tu as deja vote! Tricheur!"})
   }
   return fetch(`${_baseURL}/api/bets`, {
@@ -24,7 +23,7 @@ const submitBet = (data) => {
 
 export function BetForm({ onSuccess }) {
   const { register, handleSubmit, errors, setError } = useForm();
-  const { setVotedDate } = useDateState();
+  const { setVotedDate, canVote } = useDateState();
   const inputColor =
     errors && errors.date
       ? "border-red-500 hover:border-red-700"
@@ -33,7 +32,7 @@ export function BetForm({ onSuccess }) {
     "shadow appearance-none border-2 rounded-md w-4/6 py-2 px-3 sm:mr-4 text-gray-700 leading-tight focus:outline-none focus:shadow-outline " +
     inputColor;
   const onSubmit = (data) =>
-    submitBet(data).then(
+    submitBet(data, canVote).then(
       () => {
         setVotedDate(data.date);
         onSuccess(data.date);
